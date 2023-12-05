@@ -1,0 +1,21 @@
+#!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+
+main() {
+	local -ri y=2023
+	local -ri day="${1-0}"
+	if ((day)); then
+		local -r d="$(printf "%02d" "${day}")"
+		local -ri part="${2-0}"
+		if ((part)); then
+			local -r filename="${3-input}"
+			go run "${y}"/"${d}"/main.go "${part}" "${y}"/"${d}"/"${filename}".txt
+			exit 0
+		fi
+	fi
+	echo "Usage: day <day> <part> <filename>"
+	exit 1
+}
+
+main "$@"
